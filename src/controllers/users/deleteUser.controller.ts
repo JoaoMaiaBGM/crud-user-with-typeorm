@@ -1,0 +1,21 @@
+import { Request, Response } from "express";
+import deleteUserService from "../../services/users/deleteUser.service";
+
+const deleteUserController = async (req: Request, res: Response) => {
+  try {
+    const email = req.userEmail;
+
+    const user = await deleteUserService(email);
+
+    return res.status(204).json({
+      message: "User deleted eith success!",
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(401).json({
+        message: error.message,
+      });
+    }
+  }
+};
+export default deleteUserController;
