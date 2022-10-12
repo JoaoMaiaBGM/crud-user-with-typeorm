@@ -14,7 +14,3 @@ export interface ILoginUser {
   email: string;
   password: string;
 }
-
-export interface IListUserById {
-  authorization?: string;
-}

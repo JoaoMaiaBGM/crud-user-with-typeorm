@@ -3,9 +3,9 @@ import listUserByIdService from "../../services/users/listUserById.service";
 
 const listUserByIdController = async (req: Request, res: Response) => {
   try {
-    const user = await listUserByIdService({
-      authorization: req.headers.authorization,
-    });
+    const email = req.userEmail;
+
+    const user = await listUserByIdService(email);
 
     return res.status(200).json(user);
   } catch (error) {
