@@ -4,7 +4,10 @@ import { ILoginUser } from "../../interfaces/users";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const loginUserService = async ({ email, password }: ILoginUser) => {
+const loginUserService = async ({
+  email,
+  password,
+}: ILoginUser): Promise<string> => {
   const userRepository = AppDataSource.getRepository(User);
 
   const users = await userRepository.find();
