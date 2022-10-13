@@ -1,20 +1,30 @@
 import bcrypt from "bcrypt";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
+import { IUser } from "../../interfaces/users";
 
-const updateUserService = async (email: string, password: string) => {
+const updateUserService = async (id: string, data: IUser) => {
   const userRepository = AppDataSource.getRepository(User);
 
-  const users = await userRepository.find();
+  const account = await userRepository.findOneBy({
+    id: id,
+  });
 
-  const account = users.find((user) => user.email === email);
-  console.log(account);
+  if (!account) {
+    throw new Error("User not found");
+  }
 
-  const newPassword = bcrypt.hashSync(password, 10);
+  if (data.password) {
+    data.password = bcrypt.hashSync(data.password, 10);
+  }
 
-  await userRepository.update(account!.id, { password: newPassword });
+  await userRepository.update({ id }, data);
 
-  return true;
+  const updatedUser = await userRepository.findOneBy({
+    id: id,
+  });
+
+  return updatedUser!;
 };
 
 export default updateUserService;
