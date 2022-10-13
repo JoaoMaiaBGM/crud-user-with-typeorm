@@ -6,13 +6,13 @@ export class User {
   @PrimaryColumn("uuid")
   readonly id: string;
 
-  @Column()
+  @Column({ length: 120 })
   name: string;
 
-  @Column()
+  @Column({ length: 100, unique: true })
   email: string;
 
-  @Column()
+  @Column({ length: 120 })
   password: string;
 
   constructor() {
