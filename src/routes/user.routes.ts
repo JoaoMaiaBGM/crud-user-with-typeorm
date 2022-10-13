@@ -10,7 +10,7 @@ const userRoutes = Router();
 
 userRoutes.post("", createUserController);
 userRoutes.get("", listUsersController);
-userRoutes.get("/me", verifyAuthTokenMiddleware, listUserByIdController);
+userRoutes.get("/:id", verifyAuthTokenMiddleware, listUserByIdController);
 userRoutes.patch("/:id", verifyAuthTokenMiddleware, updateUserController);
 userRoutes.delete("/:id", verifyAuthTokenMiddleware, deleteUserController);
 
